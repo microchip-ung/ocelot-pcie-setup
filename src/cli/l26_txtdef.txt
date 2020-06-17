@@ -1,0 +1,85 @@
+
+This file defines texts. The file is converted to .c and .h files by the
+tool txt2c.pl. The .c and .h files are included in the files txt.c and txt.h.
+
+Every time a change has been made in this file, the txt2c.pl must be run. A
+bat file, maketxt.bat, exists for that purpose.
+
+Texts are defined in groups with the following names:
+      "hlp" for help texts
+      "cmd" for texts used as commands or options
+      "std" for standard texts used for printing.
+
+A text group must be encapsulated in the delimiters
+%START_TXTGROUP(<group name>) or %START_CMDGROUP(<group name>)
+and
+%END_TXTGROUP
+
+The delimiters must be placed at the start of the line.
+
+A normal text group (START_TXTGROUP) takes two parameters for each text:
+- a text id that can be used to refer to the text
+- the text string.
+
+The two parameters must be separated by ',' and the text string must be followed
+by a ',' (even if it is the last text in the group).
+A text string must be encapsulated in '"', e.g. "abc". It may be composed of 
+several strings on separate lines like
+"abc"
+"def"
+"g",
+It is the ',' that ends the text string. It can be utilized for composing a text
+dependant on compiler switches. If a text is constructed in this way, it is 
+recommended to end the text with an empty string "" on the last line, e.g.
+"abc",
+#if defined(compiler_switch)
+"def"
+#endif
+"",
+
+Lines starting with a "#" character are written unchanged to the .c and .h files.
+
+Lines outside the text group delimiters are ignored.
+
+A command text group (START_CMDGROUP) takes an additional parameter, namely
+the minimum number of characters required for a text match. The number must 
+follow right after the text string on the same line separated by a ',', and it
+must be followed by a ',' (even if it is the last text in the group).
+
+
+/* ************************************************************************ **
+ *
+ *
+ * Command and option texts
+ *
+ *
+ *
+ * ************************************************************************ */
+
+%START_CMDGROUP(cmd)
+CMD_TXT_NO_END,                 "END",                        3,
+%END_GROUP
+
+/* ************************************************************************ **
+ *
+ *
+ * Standard texts
+ *
+ *
+ *
+ * ************************************************************************ */
+
+%START_TXTGROUP(std)
+
+#if TRANSIT_LLDP
+TXT_NO_CHIP_NAME,                 "SparX-III",
+
+TXT_NO_SWITCH_DESCRIPTION,        " - 10 Port Gigabit Ethernet Switch",
+
+
+#endif
+TXT_NO_WRONG_CHIP_ID,             "Wrong Chip ID",
+TXT_NO_TEMPERATURE,               "Temperature",
+TXT_NO_COMPILE_DATE,              "Compile Date: ",
+
+%END_GROUP
