@@ -1,7 +1,5 @@
-This software is to generate a bootable Intel HEX file to bring up the PCIe interface and it does following initialization and setup:
-    .Restart PLL of the chip.
-    .Setup PCIe termination mode and interface.
-    .Monitor and maintain the PCIe link.
+This software is to generate a bootable Intel HEX file to bring up the PCIe interface, including "Restart PLL of the chip", "Setup PCIe termination mode and interface" and "Monitor and maintain the PCIe link".
+
 
 The software project is managed by .\prj\Unmanaged_VSC751X_PCIE_SETUP.uvproj, which is based on Keil PK51 Developers Kit (v9.03 or v9.57 or later versions).
 
